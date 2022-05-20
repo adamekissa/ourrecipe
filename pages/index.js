@@ -2,7 +2,9 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import { Input } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react'
 import { Button, ButtonGroup } from '@chakra-ui/react';
+import AirbnbExample from './Components/Box';
 import { useState } from 'react';
 import {
   List,
@@ -14,19 +16,16 @@ import {
 
 export default function Home({data}) {
   const[value, setValue] = useState(""); 
-  const [myList, setMyList ] = useState(["AB", "AC"]);
+  const [myList, setMyList ] = useState([{a: "AA", b:"BB"},{a: "AB", b: "BC"}]);
 
   async function addToMyList(){
     const response = await fetch(
       `https://api.edamam.com/api/recipes/v2?type=public&q=${value}&app_id=14f8dadb&app_key=69a812c28b3179d4353e2b5292b16487`
     );
     const data = await response.json();
-    // myList.push(value);
-    // console.log(myList);
     console.log(data);
     let info = data.hits.map((item)=>{ return item.recipe});
     info.map((item)=>{ console.log(item.label, item.url, item.image)})
-    // console.log(data._links.next.href);
   }
   return (
     <div className={styles.container}>
@@ -38,8 +37,12 @@ export default function Home({data}) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <a href="http://localhost:3000/">Our Recipe</a>
         </h1>
+        
+        <div>
+          <AirbnbExample/>
+        </div>
 
         <div>
           <Input placeholder='Your Recipe' value={value}  onChange={(e) => {setValue(e.target.value)}}/>
@@ -50,7 +53,7 @@ export default function Home({data}) {
               <List spacing={3}>
                   {myList.map((item, index)=> { return(<ListItem key={index}>
                     <ListIcon color='green.500' />
-                    {item};
+                    {item.a};
                   </ListItem>)})}
               </List>
         </div>
