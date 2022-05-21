@@ -1,5 +1,7 @@
 import '../styles/globals.css'
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider } from '@chakra-ui/react';
+import 'bootstrap/dist/css/bootstrap.css';
+import "./index.css";
 
 function MyApp({ Component, pageProps }) {
   return (
